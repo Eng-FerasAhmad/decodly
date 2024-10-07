@@ -122,9 +122,21 @@ body {
   color: red;
 }
 
+
+.footer {
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: small;
+  color: gray;
+}
+
 @media (max-width: 768px) {
   .flex-container {
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -144,15 +156,8 @@ body {
     width: 100%;
     padding: 20px 0;
   }
-}
 
-.footer {
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  font-size: small;
-  color: gray;
+  .footer {
+    position: relative;
+  }
 }
