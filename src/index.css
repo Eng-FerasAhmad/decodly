@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   height: 100vh;
   background-color: #f0f0f0;
+  font-size: 15px;
 }
 
 .container {
@@ -44,9 +45,11 @@ body {
   border-radius: 4px;
   font-family: 'Courier New', Courier, monospace;
   resize: none;
+  font-size: 16px;
   &:focus {
     border: 1px solid #ccc;
     outline: none;
+    background-color: #ffffe6;
   }
 }
 
@@ -62,7 +65,7 @@ body {
 
 .json-output {
   overflow: auto;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 270px);
 }
 
 .copy-button {

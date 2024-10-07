@@ -1,14 +1,14 @@
 {
   "name": "decodly",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
   "type": "module",
   "author": {
     "email": "feras.ahmad@gmx.de",
     "name": "Feras Ahmad",
     "url": "www.feras-ahmad.net"
   },
-  "homepage": "https://github.com/Eng-FerasAhmad/decodly",
+  "homepage": "https://eng-ferasahmad.github.io/decodly/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
