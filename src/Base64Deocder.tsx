@@ -1,43 +1,67 @@
-import { useState } from 'react';
-import ReactJson from 'react-json-view';
+import { useEffect, useState } from 'react';
+import Base64Input from "./Base64Input.tsx";
+import JsonOutput from "./JsonOutput.tsx";
+import History from "./History.tsx";
+import { decodeBase64String, groupByDay } from "./utils.ts";
+import { DecodedEntry } from './types.ts';
+
+const MAX_HISTORY_LENGTH = 20;
 
 function Base64Decoder() {
     const [base64Input, setBase64Input] = useState('');
-    const [jsonOutput, setJsonOutput] = useState(null);
+    const [jsonOutput, setJsonOutput] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
-    const [collapse, setCollapse] = useState<number | boolean>(3);
+    const [collapse, setCollapse] = useState<boolean | number>(3);
     const [collapseLabel, setCollapseLabel] = useState<string>('Expand');
     const [copyJsonLabel, setCopyJsonLabel] = useState<string>('Copy JSON');
+    const [history, setHistory] = useState<DecodedEntry[]>([]);
+    const [collapseHistory, setCollapseHistory] = useState<boolean>(true);
+
+    useEffect(() => {
+        const storedHistory = localStorage.getItem('decodedHistory');
+        if (storedHistory) {
+            const parsedHistory = JSON.parse(storedHistory);
+            setHistory(parsedHistory);
+        }
+    }, []);
 
     const decodeBase64 = () => {
         try {
             if (!base64Input) throw new Error('Empty input');
+            const json = decodeBase64String(base64Input);
+            const newEntry: DecodedEntry = { date: new Date().toISOString(), json };
 
-            const decodedString = atob(base64Input);
-            const utf8String = decodeURIComponent(
-                decodedString.split('').map((char) => {
-                    return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
-                }).join('')
+            const isDuplicate = history.some(entry =>
+                JSON.stringify(entry.json) === JSON.stringify(newEntry.json)
             );
 
-            const json = JSON.parse(utf8String);
-            // Check if json is a valid object before setting it
-            if (typeof json === 'object' && json !== null) {
-                setJsonOutput(json);
-                setError(null);
+            if (!isDuplicate) {
+                const updatedHistory = [...history, newEntry];
+
+                if (updatedHistory.length > MAX_HISTORY_LENGTH) {
+                    updatedHistory.shift(); // Remove the oldest entry (first element)
+                }
+
+                setHistory(updatedHistory);
+                localStorage.setItem('decodedHistory', JSON.stringify(updatedHistory));
             } else {
-                throw new Error('Decoded value is not a valid JSON object');
+                setError('This entry already exists in history.');
             }
+
+            setJsonOutput(json);
+            setError(null);
         } catch (err) {
             setError('Invalid Base64 or JSON format');
             setJsonOutput(null);
         }
     };
 
+
     const copyToClipboard = () => {
         if (jsonOutput) {
             navigator.clipboard.writeText(JSON.stringify(jsonOutput, null, 2));
-            setCopyJsonLabel('Copied')
+            setCopyJsonLabel('Copied');
+            setTimeout(() => setCopyJsonLabel('Copy JSON'), 2000);
         }
     };
 
@@ -47,58 +71,49 @@ function Base64Decoder() {
         setError(null);
     };
 
-    const collapseHandler = (): void => {
-        if (collapse === 3 ) {
-            setCollapseLabel('Collapse');
-            setCollapse(false);
-        }
+    const clearHistory = () => {
+        setHistory([]);
+        localStorage.removeItem('decodedHistory');
+    };
 
-        if (collapse === false ) {
-            setCollapseLabel('Expand');
-            setCollapse(3);
-        }
-    }
+    const collapseHandler = () => {
+        setCollapse(prev => !prev);
+        setCollapseLabel(prev => (prev === 'Expand' ? 'Collapse' : 'Expand'));
+    };
+
+    const toggleCollapseHistory = () => {
+        setCollapseHistory(prev => !prev);
+    };
 
     return (
         <div className="container">
             <div className="content-box">
                 <h2>Base64 to JSON Decoder</h2>
-                <div className="flex-container">
-                    <div className="content-decoder">
-                      <textarea
-                          rows={6}
-                          cols={30}
-                          placeholder="Enter Base64 string"
-                          value={base64Input}
-                          onChange={(e) => setBase64Input(e.target.value)}
-                          className="textarea"
-                      />
-                    {/*decoder button*/}
-                    <div className="button-container">
-                        <button onClick={decodeBase64} className="decode-button">
-                            Decode
-                        </button>
-                        <button onClick={clearInput} className="clear-button">
-                            Clear
-                        </button>
-                    </div>
-                    </div>
-                    <div className="json-output-container">
-                        <button onClick={copyToClipboard} className="copy-button">
-                            {copyJsonLabel}
-                        </button>
-                        <button onClick={collapseHandler} className="collapse-button">
-                            {collapseLabel}
-                        </button>
-                        {error && <p className="error-message">{error}</p>}
-                        {jsonOutput && (
-                            <div className="json-output">
-                                <h3>Decoded JSON:</h3>
-                                <ReactJson name={null} src={jsonOutput} theme="monokai" collapsed={collapse } />
-                            </div>
-                        )}
-                    </div>
+                <div className="content">
+                    <Base64Input
+                        base64Input={base64Input}
+                        setBase64Input={setBase64Input}
+                        decodeBase64={decodeBase64}
+                        clearInput={clearInput}
+                    />
+                    <JsonOutput
+                        jsonOutput={jsonOutput}
+                        error={error}
+                        collapse={collapse}
+                        collapseLabel={collapseLabel}
+                        collapseHandler={collapseHandler}
+                        copyToClipboard={copyToClipboard}
+                        copyJsonLabel={copyJsonLabel}
+                    />
                 </div>
+
+                <button className="history-toggle" onClick={toggleCollapseHistory}>
+                    {collapseHistory ? 'Show History' : 'Hide History'}
+                </button>
+
+                {!collapseHistory && (
+                    <History history={groupByDay(history)} clearHistory={clearHistory} />
+                )}
             </div>
         </div>
     );

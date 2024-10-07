@@ -1,28 +1,33 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  height: 100vh;
   background-color: #f0f0f0;
   font-size: 15px;
 }
 
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: #f0f0f0;
+    flex-direction: row;
+    height: fit-content;
   padding: 20px;
+
+  min-height: calc(100vh - 80px)
 }
 
 .content-box {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Set width to 100% */
+  width: 100%;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
 .flex-container {
@@ -122,42 +127,118 @@ body {
   color: red;
 }
 
-
 .footer {
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  font-size: small;
-  color: gray;
+    color: gray;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    font-size: small;
 }
 
-@media (max-width: 768px) {
-  .flex-container {
-    flex-direction: column;
-    justify-content: center;
+/* history */
+.history-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.history-table {
+
+}
+
+.history-table th, .history-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.history-table th {
+    background-color: #f2f2f2;
+}
+
+.history-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.json-display {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.history-table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-  }
+}
 
-  .content-decoder {
-    margin:0;
-    width: 100%;
-  }
+.clear-history {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+}
 
-  .textarea {
-    margin:0;
+.history-toggle {
+    height: 60px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 40px 10px 10px 0px;
+    cursor: pointer;
+    &:hover {
+        background-color: #ccf2ff;
+    }
+}
 
-  }
 
-  .json-output-container {
-    margin: 20px 0 0 0; ;
-    width: 100%;
-    padding: 20px 0;
-  }
+/* Table view */
 
-  .footer {
-    position: relative;
-  }
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .flex-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content-decoder {
+        margin:0;
+        width: 100%;
+    }
+
+    .textarea {
+        margin:0;
+
+    }
+
+    .history-toggle {
+        margin-right: 0;
+    }
+
+    .collapse-button {
+        margin-left: 10px;
+        margin-top: -10px;
+    }
+
+    .json-output-container {
+        margin: 20px 0 0 0; ;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .footer {
+        position: relative;
+    }
+
+    .history-container {
+        flex-direction: column;
+    }
 }
