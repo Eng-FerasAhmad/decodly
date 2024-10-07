@@ -8,7 +8,7 @@
     "name": "Feras Ahmad",
     "url": "www.feras-ahmad.net"
   },
-  "homepage": "https://eng-ferasahmad.github.io/decodly/",
+  "homepage": "https://eng-ferasahmad.github.io/decodly",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
