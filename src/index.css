@@ -142,3 +142,14 @@ body {
     padding: 20px 0;
   }
 }
+
+.footer {
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: small;
+  color: gray;
+}

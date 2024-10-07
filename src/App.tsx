@@ -2,9 +2,12 @@ import Base64Decoder from "./Base64Deocder.tsx";
 
 function App() {
   return (
-    <>
-        <Base64Decoder />
-    </>
+      <div>
+          <Base64Decoder/>
+          <div className="footer">
+              &copy; {new Date().getFullYear()} Feras Ahmad
+          </div>
+      </div>
   )
 }
 
