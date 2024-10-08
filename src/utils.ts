@@ -13,11 +13,11 @@ export const decodeBase64String = (base64Input: string): any => {
 
 export const groupByDay = (history: DecodedEntry[]): HistoryGroup[] => {
     return history.reduce((groups: HistoryGroup[], item: DecodedEntry) => {
-        const date = new Date(item.date).toLocaleDateString(undefined, {
+        const date = new Date(item.date).toLocaleDateString('de-DE', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
-            day: 'numeric'
+            day: 'numeric',
         });
         const group = groups.find(g => g.date === date);
 
@@ -32,5 +32,5 @@ export const groupByDay = (history: DecodedEntry[]): HistoryGroup[] => {
         });
 
         return groups;
-    }, []);
+    }, []).sort((a, b) => new Date(b.items[0].date).getTime() - new Date(a.items[0].date).getTime());
 };
