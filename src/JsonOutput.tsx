@@ -1,4 +1,4 @@
-import {ReactElement} from 'react'
+import { ReactElement } from 'react';
 import ReactJson from 'react-json-view';
 
 interface Props {
@@ -11,14 +11,15 @@ interface Props {
     copyJsonLabel: string;
 }
 
-export default function JsonOutput({     jsonOutput,
-                                       error,
-                                       collapse,
-                                       collapseLabel,
-                                       collapseHandler,
-                                       copyToClipboard,
-                                       copyJsonLabel }: Props): ReactElement {
-
+export default function JsonOutput({
+    jsonOutput,
+    error,
+    collapse,
+    collapseLabel,
+    collapseHandler,
+    copyToClipboard,
+    copyJsonLabel,
+}: Props): ReactElement {
     return (
         <div className="json-output-container">
             <button onClick={copyToClipboard} className="copy-button">
@@ -31,9 +32,14 @@ export default function JsonOutput({     jsonOutput,
             {jsonOutput && (
                 <div className="json-output">
                     <h3>Decoded JSON:</h3>
-                    <ReactJson name={null} src={jsonOutput} theme="monokai" collapsed={collapse}/>
+                    <ReactJson
+                        name={null}
+                        src={jsonOutput}
+                        theme="monokai"
+                        collapsed={collapse}
+                    />
                 </div>
             )}
         </div>
-    )
+    );
 }

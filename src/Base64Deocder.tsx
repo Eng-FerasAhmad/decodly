@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import Base64Input from "./Base64Input.tsx";
-import JsonOutput from "./JsonOutput.tsx";
-import History from "./History.tsx";
-import { decodeBase64String, groupByDay } from "./utils.ts";
-import { DecodedEntry } from './types.ts';
+
+import Base64Input from './Base64Input';
+import JsonOutput from './JsonOutput';
+import History from './History';
+import { decodeBase64String, groupByDay } from './utils';
+import { DecodedEntry } from './types';
 
 const MAX_HISTORY_LENGTH = 20;
 
@@ -29,10 +30,14 @@ function Base64Decoder() {
         try {
             if (!base64Input) throw new Error('Empty input');
             const json = decodeBase64String(base64Input);
-            const newEntry: DecodedEntry = { date: new Date().toISOString(), json };
+            const newEntry: DecodedEntry = {
+                date: new Date().toISOString(),
+                json,
+            };
 
-            const isDuplicate = history.some(entry =>
-                JSON.stringify(entry.json) === JSON.stringify(newEntry.json)
+            const isDuplicate = history.some(
+                (entry) =>
+                    JSON.stringify(entry.json) === JSON.stringify(newEntry.json)
             );
 
             if (!isDuplicate) {
@@ -43,7 +48,10 @@ function Base64Decoder() {
                 }
 
                 setHistory(updatedHistory);
-                localStorage.setItem('decodedHistory', JSON.stringify(updatedHistory));
+                localStorage.setItem(
+                    'decodedHistory',
+                    JSON.stringify(updatedHistory)
+                );
             } else {
                 setError('This entry already exists in history.');
             }
@@ -55,7 +63,6 @@ function Base64Decoder() {
             setJsonOutput(null);
         }
     };
-
 
     const copyToClipboard = () => {
         if (jsonOutput) {
@@ -77,12 +84,12 @@ function Base64Decoder() {
     };
 
     const collapseHandler = () => {
-        setCollapse(prev => !prev);
-        setCollapseLabel(prev => (prev === 'Expand' ? 'Collapse' : 'Expand'));
+        setCollapse((prev) => !prev);
+        setCollapseLabel((prev) => (prev === 'Expand' ? 'Collapse' : 'Expand'));
     };
 
     const toggleCollapseHistory = () => {
-        setCollapseHistory(prev => !prev);
+        setCollapseHistory((prev) => !prev);
     };
 
     return (
@@ -107,12 +114,18 @@ function Base64Decoder() {
                     />
                 </div>
 
-                <button className="history-toggle" onClick={toggleCollapseHistory}>
+                <button
+                    className="history-toggle"
+                    onClick={toggleCollapseHistory}
+                >
                     {collapseHistory ? 'Show History' : 'Hide History'}
                 </button>
 
                 {!collapseHistory && (
-                    <History history={groupByDay(history)} clearHistory={clearHistory} />
+                    <History
+                        history={groupByDay(history)}
+                        clearHistory={clearHistory}
+                    />
                 )}
             </div>
         </div>

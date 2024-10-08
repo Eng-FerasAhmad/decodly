@@ -1,4 +1,4 @@
-import {ReactElement} from 'react'
+import { ReactElement } from 'react';
 
 interface Props {
     base64Input: string;
@@ -7,10 +7,12 @@ interface Props {
     clearInput: () => void;
 }
 
-export default function Base64Input({ base64Input,
-                                        setBase64Input,
-                                        decodeBase64,
-                                        clearInput }: Props): ReactElement {
+export default function Base64Input({
+    base64Input,
+    setBase64Input,
+    decodeBase64,
+    clearInput,
+}: Props): ReactElement {
     return (
         <div className="content-decoder">
             <textarea
@@ -30,5 +32,5 @@ export default function Base64Input({ base64Input,
                 </button>
             </div>
         </div>
-    )
+    );
 }
