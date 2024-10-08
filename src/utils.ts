@@ -1,6 +1,6 @@
 import { DecodedEntry, HistoryGroup } from './types';
 
-export const decodeBase64String = (base64Input: string): any => {
+export const decodeBase64String = (base64Input: string): string => {
     const decodedString = atob(base64Input);
     const utf8String = decodeURIComponent(
         decodedString
@@ -31,8 +31,8 @@ export const groupByDay = (history: DecodedEntry[]): HistoryGroup[] => {
                 groups.push({ date, items: [item] });
             }
 
-            groups.forEach((group) => {
-                group.items.sort(
+            groups.forEach((groupItem) => {
+                groupItem.items.sort(
                     (a, b) =>
                         new Date(b.date).getTime() - new Date(a.date).getTime()
                 );

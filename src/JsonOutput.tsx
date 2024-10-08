@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import ReactJson from 'react-json-view';
 
 interface Props {
-    jsonOutput: any;
+    jsonOutput: unknown;
     error: string | null;
     collapse: number | boolean;
     collapseLabel: string;
@@ -29,12 +29,12 @@ export default function JsonOutput({
                 {collapseLabel}
             </button>
             {error && <p className="error-message">{error}</p>}
-            {jsonOutput && (
+            {typeof jsonOutput === 'object' && jsonOutput !== null && (
                 <div className="json-output">
                     <h3>Decoded JSON:</h3>
                     <ReactJson
                         name={null}
-                        src={jsonOutput}
+                        src={jsonOutput as object}
                         theme="monokai"
                         collapsed={collapse}
                     />

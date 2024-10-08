@@ -1,6 +1,6 @@
 export interface DecodedEntry {
     date: string;
-    json: any;
+    json: unknown;
 }
 
 export interface HistoryGroup {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import Base64Input from './Base64Input';
 import JsonOutput from './JsonOutput';
@@ -8,9 +8,9 @@ import { DecodedEntry } from './types';
 
 const MAX_HISTORY_LENGTH = 20;
 
-function Base64Decoder() {
+export default function Base64Decoder(): ReactElement {
     const [base64Input, setBase64Input] = useState('');
-    const [jsonOutput, setJsonOutput] = useState<any>(null);
+    const [jsonOutput, setJsonOutput] = useState<unknown>(null);
     const [error, setError] = useState<string | null>(null);
     const [collapse, setCollapse] = useState<boolean | number>(3);
     const [collapseLabel, setCollapseLabel] = useState<string>('Expand');
@@ -44,7 +44,7 @@ function Base64Decoder() {
                 const updatedHistory = [...history, newEntry];
 
                 if (updatedHistory.length > MAX_HISTORY_LENGTH) {
-                    updatedHistory.shift(); // Remove the oldest entry (first element)
+                    updatedHistory.shift();
                 }
 
                 setHistory(updatedHistory);
@@ -131,5 +131,3 @@ function Base64Decoder() {
         </div>
     );
 }
-
-export default Base64Decoder;
