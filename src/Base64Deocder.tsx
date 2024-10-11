@@ -95,7 +95,10 @@ export default function Base64Decoder(): ReactElement {
     return (
         <div className="container">
             <div className="content-box">
-                <h2>Base64 to JSON Decoder</h2>
+                <h2 className="content-header">
+                    Decodly
+                    <span>a base64 to JSON Decoder</span>
+                </h2>
                 <div className="content">
                     <Base64Input
                         base64Input={base64Input}

@@ -30,6 +30,15 @@ body {
     width: 100%;
 }
 
+.content-header {
+    span {
+        font-weight: 400;
+        margin-left: 10px;
+        font-size: 18px;
+        color: #666666;
+    }
+}
+
 .flex-container {
     display: flex;
     justify-content: space-between;
@@ -40,6 +49,13 @@ body {
     display: flex;
     flex-direction: column;
     width: 40%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 .textarea {
@@ -100,19 +116,32 @@ body {
 }
 
 .decode-button,
+.diff-button,
 .clear-button {
-    background-color: #008cba; /* Blue */
+    background-color: #008cba;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
     width: 100px;
-    margin: 10px 20px 10px 0px;
+    margin: 20px 20px 0px 0px;
+    text-align: center;
+    text-decoration: none;
 }
 
 .decode-button:hover {
     background-color: #007b9e;
+}
+
+.diff-button {
+    background-color: #d9d9d9;
+    margin-right: 0 !important;
+    color: #262626
+}
+
+.diff-button:hover {
+    background-color: #bfbfbf;
 }
 
 .clear-button {
@@ -163,6 +192,7 @@ body {
 .json-display {
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 100%;
 }
 
 .history-table-header {
@@ -191,7 +221,7 @@ body {
     margin: 40px 10px 10px 0px;
     cursor: pointer;
     &:hover {
-        background-color: #ccf2ff;
+        background-color: #f0f0f0;
     }
 }
 

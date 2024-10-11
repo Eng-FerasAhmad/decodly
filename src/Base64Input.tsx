@@ -24,12 +24,23 @@ export default function Base64Input({
                 className="textarea"
             />
             <div className="button-container">
-                <button onClick={decodeBase64} className="decode-button">
-                    Decode
-                </button>
-                <button onClick={clearInput} className="clear-button">
-                    Clear
-                </button>
+                <div className="button-actions">
+                    <button onClick={decodeBase64} className="decode-button">
+                        Decode
+                    </button>
+                    <button onClick={clearInput} className="clear-button">
+                        Clear
+                    </button>
+                </div>
+
+                <a
+                    className="button-actions diff-button"
+                    href={'https://jsondiff.com/'}
+                    target={'_blank'}
+                    rel="noreferrer"
+                >
+                    jsondiff.com
+                </a>
             </div>
         </div>
     );
