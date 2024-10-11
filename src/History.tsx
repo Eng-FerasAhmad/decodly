@@ -33,7 +33,7 @@ export default function History({
     const copyToClipboard = () => {
         if (selectedJson) {
             navigator.clipboard.writeText(
-                JSON.stringify(selectedJson, null, 2)
+                JSON.stringify(selectedJson.json, null, 2)
             );
             setCopyJsonLabel('Copied');
             setTimeout(() => setCopyJsonLabel('Copy JSON'), 2000);
