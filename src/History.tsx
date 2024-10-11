@@ -15,6 +15,7 @@ export default function History({
 }: Props): ReactElement {
     const [selectedJson, setSelectedJson] = useState<DecodedEntry | null>(null);
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const [copyJsonLabel, setCopyJsonLabel] = useState<string>('Copy JSON');
 
     const handleRowClick = (item: DecodedEntry) => {
         setSelectedJson(item);
@@ -32,9 +33,10 @@ export default function History({
     const copyToClipboard = () => {
         if (selectedJson) {
             navigator.clipboard.writeText(
-                JSON.stringify(selectedJson.json, null, 2)
+                JSON.stringify(selectedJson, null, 2)
             );
-            alert('JSON copied to clipboard!');
+            setCopyJsonLabel('Copied');
+            setTimeout(() => setCopyJsonLabel('Copy JSON'), 2000);
         }
     };
 
@@ -54,7 +56,7 @@ export default function History({
                 collapseLabel={isCollapsed ? 'Expand' : 'Collapse'}
                 collapseHandler={collapseHandler}
                 copyToClipboard={copyToClipboard}
-                copyJsonLabel="Copy JSON"
+                copyJsonLabel={copyJsonLabel}
             />
         </div>
     );
