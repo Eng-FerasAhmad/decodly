@@ -6,22 +6,21 @@ body {
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
     height: fit-content;
-    padding: 20px;
+}
 
-    min-height: calc(100vh - 80px);
+.container-decoder {
+    height: fit-content;
 }
 
 .content-box {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 20px;
+    padding: 0 40px;
+    min-height: calc(100vh - 120px);
+    margin-bottom: 20px;
+
 }
 
 .content {
@@ -48,7 +47,7 @@ body {
 .content-decoder {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
 }
 
 .button-container {
@@ -67,6 +66,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     resize: none;
     font-size: 16px;
+    margin: 0px;
     &:focus {
         border: 1px solid #ccc;
         outline: none;
@@ -75,13 +75,13 @@ body {
 }
 
 .json-output-container {
-    width: 60%;
+    width: 50%;
     background-color: #222;
     color: white;
     border-radius: 4px;
     padding: 10px;
     position: relative;
-    margin: 0 10px 0 30px;
+    margin: 0 0px 0 30px;
 }
 
 .json-output {
@@ -206,26 +206,25 @@ body {
     background-color: #f44336;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 0px;
     border-radius: 4px;
     cursor: pointer;
-    width: 100px;
-    height: 40px;
+    width: 130px;
+    height: 30px;
 }
 
 .history-toggle {
     height: 60px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border: 1px solid #bbbaba;
+    color: #565656;
     border-radius: 4px;
-    margin: 40px 10px 10px 0px;
+    margin: 40px 00px 10px 0px;
     cursor: pointer;
     &:hover {
         background-color: #f0f0f0;
     }
 }
-
-/* Table view */
 
 @media (max-width: 768px) {
     .content {

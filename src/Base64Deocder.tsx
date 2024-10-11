@@ -93,44 +93,39 @@ export default function Base64Decoder(): ReactElement {
     };
 
     return (
-        <div className="container">
-            <div className="content-box">
-                <h2 className="content-header">
-                    Decodly
-                    <span>a base64 to JSON Decoder</span>
-                </h2>
-                <div className="content">
-                    <Base64Input
-                        base64Input={base64Input}
-                        setBase64Input={setBase64Input}
-                        decodeBase64={decodeBase64}
-                        clearInput={clearInput}
-                    />
-                    <JsonOutput
-                        jsonOutput={jsonOutput}
-                        error={error}
-                        collapse={collapse}
-                        collapseLabel={collapseLabel}
-                        collapseHandler={collapseHandler}
-                        copyToClipboard={copyToClipboard}
-                        copyJsonLabel={copyJsonLabel}
-                    />
-                </div>
-
-                <button
-                    className="history-toggle"
-                    onClick={toggleCollapseHistory}
-                >
-                    {collapseHistory ? 'Show History' : 'Hide History'}
-                </button>
-
-                {!collapseHistory && (
-                    <History
-                        history={groupByDay(history)}
-                        clearHistory={clearHistory}
-                    />
-                )}
+        <div className="content-box">
+            <h2 className="content-header">
+                Decodly
+                <span>a base64 to JSON Decoder</span>
+            </h2>
+            <div className="content">
+                <Base64Input
+                    base64Input={base64Input}
+                    setBase64Input={setBase64Input}
+                    decodeBase64={decodeBase64}
+                    clearInput={clearInput}
+                />
+                <JsonOutput
+                    jsonOutput={jsonOutput}
+                    error={error}
+                    collapse={collapse}
+                    collapseLabel={collapseLabel}
+                    collapseHandler={collapseHandler}
+                    copyToClipboard={copyToClipboard}
+                    copyJsonLabel={copyJsonLabel}
+                />
             </div>
+
+            <button className="history-toggle" onClick={toggleCollapseHistory}>
+                {collapseHistory ? 'Show History' : 'Hide History'}
+            </button>
+
+            {!collapseHistory && (
+                <History
+                    history={groupByDay(history)}
+                    clearHistory={clearHistory}
+                />
+            )}
         </div>
     );
 }
