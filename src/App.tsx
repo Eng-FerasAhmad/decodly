@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react';
 
-import DataIdExtractor from './html-to-json/HtmlToJson';
-import JsonViewerInput from './format-json/JsonViewerInput';
+import DataIdExtractor from './extractor/HtmlToJson';
+import JsonViewerInput from './json-viewer/JsonViewerInput';
 
 import Base64Decoder from './Base64Deocder';
 import Footer from './Footer';
@@ -29,6 +29,7 @@ export default function App(): ReactElement {
                             activeTab === 'decoder' ? '#007bff' : '#f0f0f0',
                         color: activeTab === 'decoder' ? '#fff' : '#000',
                         border: 'none',
+                        width: '130px',
                         borderRadius: '5px',
                     }}
                     onClick={() => setActiveTab('decoder')}
@@ -42,8 +43,9 @@ export default function App(): ReactElement {
                         cursor: 'pointer',
                         backgroundColor:
                             activeTab === 'extractor' ? '#007bff' : '#f0f0f0',
-                        color: activeTab === 'extractor' ? '#fff' : '#000',
+                        color: activeTab === 'extractor' ? '#f7f7f7' : '#000',
                         border: 'none',
+                        width: '130px',
                         borderRadius: '5px',
                     }}
                     onClick={() => setActiveTab('extractor')}
@@ -58,6 +60,7 @@ export default function App(): ReactElement {
                             activeTab === 'viewer' ? '#007bff' : '#f0f0f0',
                         color: activeTab === 'viewer' ? '#fff' : '#000',
                         border: 'none',
+                        width: '130px',
                         borderRadius: '5px',
                     }}
                     onClick={() => setActiveTab('viewer')}

@@ -1,9 +1,10 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, ReactElement, useState } from 'react';
 
 import JsonOutput from '../JsonOutput';
 
 interface DataIdAttributes {
     [key: string]: {
+        // eslint-disable-next-line
         dataAttributes: { [key: string]: any };
     };
 }
@@ -13,9 +14,14 @@ export default function DataIdExtractor(): ReactElement {
     const [jsonOutput, setJsonOutput] = useState<DataIdAttributes | null>(null);
     const [collapse, setCollapse] = useState<number | boolean>(10);
     const [error, setError] = useState<string | null>(null);
+    const [attributeName, setAttributeName] = useState<string>('data-id-');
 
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setHtmlInput(e.target.value);
+    };
+
+    const handleAttributeNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setAttributeName(e.target.value);
     };
 
     const extractDataIds = () => {
@@ -27,11 +33,12 @@ export default function DataIdExtractor(): ReactElement {
 
             allElements.forEach((element) => {
                 const elementId = element.id || 'No ID';
+                // eslint-disable-next-line
                 const elementDataAttributes: { [key: string]: any } = {};
 
                 // Loop through all attributes of the element
                 Array.from(element.attributes).forEach((attr) => {
-                    if (attr.name.startsWith('data-id-')) {
+                    if (attr.name.startsWith(attributeName)) {
                         try {
                             const parsedValue = JSON.parse(attr.value);
                             elementDataAttributes[attr.name] = parsedValue;
@@ -52,6 +59,12 @@ export default function DataIdExtractor(): ReactElement {
             setError(null);
         } catch (e) {
             setError('Failed to parse HTML.');
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            extractDataIds();
         }
     };
 
@@ -84,6 +97,7 @@ export default function DataIdExtractor(): ReactElement {
                         onChange={handleInputChange}
                         className="textarea"
                     ></textarea>
+
                     <div className="button-container">
                         <div className="button-actions">
                             <button
@@ -112,6 +126,23 @@ export default function DataIdExtractor(): ReactElement {
                         copyToClipboard={copyToClipboard}
                         copyJsonLabel="Copy JSON"
                     />
+                    <div>
+                        <label
+                            className="attribute-input-label"
+                            htmlFor="attribute-input"
+                        >
+                            Data attribute:
+                        </label>
+                        <input
+                            id="attribute-input"
+                            type="text"
+                            value={attributeName}
+                            onChange={handleAttributeNameChange}
+                            onKeyDown={handleKeyDown} // Handle the Enter key
+                            placeholder="Enter attribute name"
+                            className="attribute-input"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

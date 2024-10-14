@@ -57,6 +57,7 @@ body {
     align-items: flex-end;
 }
 
+.attribute-input,
 .textarea {
     min-height: 400px;
     height: fit-content;
@@ -72,6 +73,18 @@ body {
         outline: none;
         background-color: #ffffe6;
     }
+}
+
+.attribute-input {
+    min-height: 28px;
+    padding: 4px;
+    margin: 21px 0 0 10px;
+    width: calc(100% - 153px);
+}
+.attribute-input-label {
+    min-height: 28px;
+    padding: 4px;
+    margin: 21px 0 0 30px;
 }
 
 .json-output-container {
@@ -311,5 +324,26 @@ body {
 
     .history-container {
         flex-direction: column;
+    }
+
+    .json-viewer {
+        width: 100%;
+        margin: 20px 0 0 0;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .attribute-input {
+        width: calc(100% - 123px);
+    }
+
+    .attribute-input-label {
+        min-height: 28px;
+        padding: 4px;
+        margin: 21px 0 0 0px;
+    }
+
+    .copy-utid-button {
+        margin: 21px 0 0 0px;
     }
 }
