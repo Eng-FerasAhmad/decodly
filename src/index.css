@@ -117,6 +117,7 @@ body {
 
 .decode-button,
 .diff-button,
+.extract-button,
 .clear-button {
     background-color: #008cba;
     color: white;
@@ -132,6 +133,14 @@ body {
 
 .decode-button:hover {
     background-color: #007b9e;
+}
+
+.extract-button {
+    background-color: #429e00;
+}
+
+.extract-button:hover {
+    background-color: #378300;
 }
 
 .diff-button {

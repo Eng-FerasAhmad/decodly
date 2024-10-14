@@ -31,7 +31,6 @@ export default function JsonOutput({
             {error && <p className="error-message">{error}</p>}
             {typeof jsonOutput === 'object' && jsonOutput !== null && (
                 <div className="json-output">
-                    <h3>Decoded JSON:</h3>
                     <ReactJson
                         name={null}
                         src={jsonOutput as object}

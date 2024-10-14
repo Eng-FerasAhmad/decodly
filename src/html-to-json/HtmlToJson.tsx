@@ -1,6 +1,5 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
 
-import './html-extractor.css';
 import JsonOutput from '../JsonOutput';
 
 interface DataIdAttributes {
@@ -23,28 +22,25 @@ export default function DataIdExtractor(): ReactElement {
         try {
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlInput, 'text/html');
-            const allElements = doc.querySelectorAll('*'); // Select all elements
+            const allElements = doc.querySelectorAll('*');
             const dataAttributes: DataIdAttributes = {};
 
             allElements.forEach((element) => {
-                const elementId = element.id || 'No ID'; // Use 'No ID' if the element has no ID
+                const elementId = element.id || 'No ID';
                 const elementDataAttributes: { [key: string]: any } = {};
 
                 // Loop through all attributes of the element
                 Array.from(element.attributes).forEach((attr) => {
                     if (attr.name.startsWith('data-id-')) {
                         try {
-                            // Parse the attribute value as JSON if possible
                             const parsedValue = JSON.parse(attr.value);
                             elementDataAttributes[attr.name] = parsedValue;
-                        } catch (error) {
-                            // If parsing fails, treat the value as a plain string
+                        } catch (err) {
                             elementDataAttributes[attr.name] = attr.value;
                         }
                     }
                 });
 
-                // Only add the element to the final result if it has data-id-* attributes
                 if (Object.keys(elementDataAttributes).length > 0) {
                     dataAttributes[elementId] = {
                         dataAttributes: elementDataAttributes,
@@ -53,7 +49,7 @@ export default function DataIdExtractor(): ReactElement {
             });
 
             setJsonOutput(dataAttributes);
-            setError(null); // Clear error state
+            setError(null);
         } catch (e) {
             setError('Failed to parse HTML.');
         }
@@ -61,7 +57,7 @@ export default function DataIdExtractor(): ReactElement {
 
     const clearTextArea = () => {
         setHtmlInput('');
-        setJsonOutput(null); // Clear the extracted JSON when clearing the textarea
+        setJsonOutput(null);
     };
 
     const collapseHandler = () => {
@@ -92,9 +88,9 @@ export default function DataIdExtractor(): ReactElement {
                         <div className="button-actions">
                             <button
                                 onClick={extractDataIds}
-                                className="decode-button"
+                                className="extract-button"
                             >
-                                Decode
+                                Extract
                             </button>
                             <button
                                 onClick={clearTextArea}
