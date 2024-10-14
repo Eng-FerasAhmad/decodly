@@ -5,6 +5,7 @@ import JsonOutput from './JsonOutput';
 import History from './History';
 import { decodeBase64String, groupByDay } from './utils';
 import { DecodedEntry } from './types';
+import UtidCopyButton from './UtIdCopyButton';
 
 const MAX_HISTORY_LENGTH = 20;
 
@@ -105,15 +106,22 @@ export default function Base64Decoder(): ReactElement {
                     decodeBase64={decodeBase64}
                     clearInput={clearInput}
                 />
-                <JsonOutput
-                    jsonOutput={jsonOutput}
-                    error={error}
-                    collapse={collapse}
-                    collapseLabel={collapseLabel}
-                    collapseHandler={collapseHandler}
-                    copyToClipboard={copyToClipboard}
-                    copyJsonLabel={copyJsonLabel}
-                />
+                <div className="json-viewer">
+                    <JsonOutput
+                        jsonOutput={jsonOutput}
+                        error={error}
+                        collapse={collapse}
+                        collapseLabel={collapseLabel}
+                        collapseHandler={collapseHandler}
+                        copyToClipboard={copyToClipboard}
+                        copyJsonLabel={copyJsonLabel}
+                    />
+                    <UtidCopyButton
+                        jsonOutput={
+                            jsonOutput as Record<string, unknown> | null
+                        }
+                    />
+                </div>
             </div>
 
             <button className="history-toggle" onClick={toggleCollapseHistory}>

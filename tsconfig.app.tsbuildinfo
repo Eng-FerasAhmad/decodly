@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/base64deocder.tsx","./src/base64input.tsx","./src/footer.tsx","./src/history.tsx","./src/jsonoutput.tsx","./src/tablehistory.tsx","./src/main.tsx","./src/types.ts","./src/utils.ts","./src/vite-env.d.ts"],"version":"5.6.2"}
+{"root":["./src/app.tsx","./src/base64deocder.tsx","./src/base64input.tsx","./src/footer.tsx","./src/history.tsx","./src/jsonoutput.tsx","./src/tablehistory.tsx","./src/main.tsx","./src/types.ts","./src/utils.ts","./src/vite-env.d.ts","./src/html-to-json/htmltojson.tsx"],"version":"5.6.2"}

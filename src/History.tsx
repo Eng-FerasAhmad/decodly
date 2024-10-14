@@ -49,15 +49,17 @@ export default function History({
                 clearAndResetJson={clearAndResetJson}
             />
 
-            <JsonOutput
-                jsonOutput={selectedJson && selectedJson.json}
-                error={null}
-                collapse={isCollapsed ? 0 : 3}
-                collapseLabel={isCollapsed ? 'Expand' : 'Collapse'}
-                collapseHandler={collapseHandler}
-                copyToClipboard={copyToClipboard}
-                copyJsonLabel={copyJsonLabel}
-            />
+            <div className="json-viewer">
+                <JsonOutput
+                    jsonOutput={selectedJson && selectedJson.json}
+                    error={null}
+                    collapse={isCollapsed ? 0 : 3}
+                    collapseLabel={isCollapsed ? 'Expand' : 'Collapse'}
+                    collapseHandler={collapseHandler}
+                    copyToClipboard={copyToClipboard}
+                    copyJsonLabel={copyJsonLabel}
+                />
+            </div>
         </div>
     );
 }

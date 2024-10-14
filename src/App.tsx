@@ -1,14 +1,15 @@
 import { ReactElement, useState } from 'react';
 
 import DataIdExtractor from './html-to-json/HtmlToJson';
+import JsonViewerInput from './format-json/JsonViewerInput';
 
 import Base64Decoder from './Base64Deocder';
 import Footer from './Footer';
 
 export default function App(): ReactElement {
-    const [activeTab, setActiveTab] = useState<'decoder' | 'extractor'>(
-        'decoder'
-    );
+    const [activeTab, setActiveTab] = useState<
+        'decoder' | 'extractor' | 'viewer'
+    >('decoder');
 
     return (
         <div className={'container'}>
@@ -36,6 +37,8 @@ export default function App(): ReactElement {
                 </button>
                 <button
                     style={{
+                        padding: '10px 20px',
+                        marginRight: '10px',
                         cursor: 'pointer',
                         backgroundColor:
                             activeTab === 'extractor' ? '#007bff' : '#f0f0f0',
@@ -47,15 +50,27 @@ export default function App(): ReactElement {
                 >
                     Extractor
                 </button>
+                <button
+                    style={{
+                        padding: '10px 20px',
+                        cursor: 'pointer',
+                        backgroundColor:
+                            activeTab === 'viewer' ? '#007bff' : '#f0f0f0',
+                        color: activeTab === 'viewer' ? '#fff' : '#000',
+                        border: 'none',
+                        borderRadius: '5px',
+                    }}
+                    onClick={() => setActiveTab('viewer')}
+                >
+                    JSON Viewer
+                </button>
             </div>
 
             {/* Tab Content */}
             <div style={{ flex: '1' }}>
-                {activeTab === 'decoder' ? (
-                    <Base64Decoder />
-                ) : (
-                    <DataIdExtractor />
-                )}
+                {activeTab === 'decoder' && <Base64Decoder />}
+                {activeTab === 'extractor' && <DataIdExtractor />}
+                {activeTab === 'viewer' && <JsonViewerInput />}
             </div>
 
             <Footer />

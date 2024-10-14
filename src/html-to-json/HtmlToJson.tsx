@@ -102,15 +102,17 @@ export default function DataIdExtractor(): ReactElement {
                     </div>
                 </div>
 
-                <JsonOutput
-                    jsonOutput={jsonOutput}
-                    error={error}
-                    collapse={collapse}
-                    collapseLabel={collapse ? 'Expand' : 'Collapse'}
-                    collapseHandler={collapseHandler}
-                    copyToClipboard={copyToClipboard}
-                    copyJsonLabel="Copy JSON"
-                />
+                <div className="json-viewer">
+                    <JsonOutput
+                        jsonOutput={jsonOutput}
+                        error={error}
+                        collapse={collapse}
+                        collapseLabel={collapse ? 'Expand' : 'Collapse'}
+                        collapseHandler={collapseHandler}
+                        copyToClipboard={copyToClipboard}
+                        copyJsonLabel="Copy JSON"
+                    />
+                </div>
             </div>
         </div>
     );
