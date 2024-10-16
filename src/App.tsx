@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react';
 
-import DataIdExtractor from './extractor/HtmlToJson';
-import JsonViewerInput from './json-viewer/JsonViewerInput';
+import DataIdExtractor from './extractor/Extractor';
+import JsonViewer from './json-viewer/JsonViewer';
 
 import Base64Decoder from './Base64Deocder';
 import Footer from './Footer';
@@ -73,7 +73,7 @@ export default function App(): ReactElement {
             <div style={{ flex: '1' }}>
                 {activeTab === 'decoder' && <Base64Decoder />}
                 {activeTab === 'extractor' && <DataIdExtractor />}
-                {activeTab === 'viewer' && <JsonViewerInput />}
+                {activeTab === 'viewer' && <JsonViewer />}
             </div>
 
             <Footer />

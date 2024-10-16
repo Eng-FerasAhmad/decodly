@@ -2,7 +2,7 @@ import { ChangeEvent, ReactElement, useState } from 'react';
 
 import JsonOutput from '../JsonOutput';
 
-export default function JsonViewerInput(): ReactElement {
+export default function JsonViewer(): ReactElement {
     const [jsonInput, setJsonInput] = useState<string>('');
     const [jsonOutput, setJsonOutput] = useState<Record<
         string,
