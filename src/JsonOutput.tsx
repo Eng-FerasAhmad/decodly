@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
-import ReactJson from 'react-json-view';
+import JsonView from '@uiw/react-json-view';
+import { vscodeTheme } from '@uiw/react-json-view/vscode';
 
 interface Props {
     jsonOutput: unknown;
@@ -20,6 +21,7 @@ export default function JsonOutput({
     copyToClipboard,
     copyJsonLabel,
 }: Props): ReactElement {
+    console.log('collapse', collapse);
     return (
         <div className="json-output-container">
             <button onClick={copyToClipboard} className="copy-button">
@@ -31,11 +33,13 @@ export default function JsonOutput({
             {error && <p className="error-message">{error}</p>}
             {typeof jsonOutput === 'object' && jsonOutput !== null && (
                 <div className="json-output">
-                    <ReactJson
-                        name={null}
-                        src={jsonOutput as object}
-                        theme="monokai"
-                        collapsed={collapse}
+                    <JsonView
+                        value={jsonOutput as object}
+                        style={vscodeTheme}
+                        collapsed={collapse} // Collapse boolean for levels
+                        onCopy={(copied) => {
+                            console.log('Copied:', copied);
+                        }}
                     />
                 </div>
             )}
