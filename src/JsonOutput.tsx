@@ -21,7 +21,6 @@ export default function JsonOutput({
     copyToClipboard,
     copyJsonLabel,
 }: Props): ReactElement {
-    console.log('collapse', collapse);
     return (
         <div className="json-output-container">
             <button onClick={copyToClipboard} className="copy-button">
@@ -34,12 +33,12 @@ export default function JsonOutput({
             {typeof jsonOutput === 'object' && jsonOutput !== null && (
                 <div className="json-output">
                     <JsonView
+                        shortenTextAfterLength={100}
+                        enableClipboard={true}
+                        displayDataTypes={false}
                         value={jsonOutput as object}
                         style={vscodeTheme}
                         collapsed={collapse} // Collapse boolean for levels
-                        onCopy={(copied) => {
-                            console.log('Copied:', copied);
-                        }}
                     />
                 </div>
             )}

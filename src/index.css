@@ -101,7 +101,11 @@ body {
 
 .json-output {
     overflow: auto;
-    max-height: calc(100vh - 270px);
+    max-height: calc(100vh - 470px);
+
+    .w-json-view-container {
+        font-size: 16px !important;
+    }
 }
 
 .json-viewer {
@@ -350,4 +354,9 @@ body {
     .copy-utid-button {
         margin: 21px 0 0 0px;
     }
+}
+
+
+.count-items {
+    width: fit-content;
 }
