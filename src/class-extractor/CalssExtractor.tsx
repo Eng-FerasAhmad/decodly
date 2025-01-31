@@ -31,13 +31,6 @@ export default function ClassExtractor(): ReactElement {
         setExcludeClasses(e.target.value);
     };
 
-    const handleSearchLevelChange = () => {
-        setSearchLevel((prev) =>
-            prev === 'all-levels' ? 'one-level' : 'all-levels'
-        );
-        extractClasses();
-    };
-
     const extractClasses = () => {
         try {
             const parser = new DOMParser();
@@ -88,6 +81,13 @@ export default function ClassExtractor(): ReactElement {
         } catch (e) {
             setError('Failed to parse HTML.');
         }
+    };
+
+    const handleSearchLevelChange = () => {
+        setSearchLevel((prev) =>
+            prev === 'all-levels' ? 'one-level' : 'all-levels'
+        );
+        extractClasses();
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

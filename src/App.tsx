@@ -3,13 +3,18 @@ import { ReactElement, useState } from 'react';
 import DataIdExtractor from './extractor/Extractor';
 import JsonViewer from './json-viewer/JsonViewer';
 import ClassExtractor from './class-extractor/CalssExtractor';
+import ExtractStyles from './style-extractor/StyleExtractor';
 
 import Base64Decoder from './Base64Deocder';
 import Footer from './Footer';
 
 export default function App(): ReactElement {
     const [activeTab, setActiveTab] = useState<
-        'decoder' | 'extractor' | 'viewer' | 'class-extractor'
+        | 'decoder'
+        | 'extractor'
+        | 'viewer'
+        | 'class-extractor'
+        | 'style-extractor'
     >('decoder');
 
     return (
@@ -89,6 +94,24 @@ export default function App(): ReactElement {
                 >
                     JSON Viewer
                 </button>
+                <button
+                    style={{
+                        padding: '10px 20px',
+                        cursor: 'pointer',
+                        backgroundColor:
+                            activeTab === 'style-extractor'
+                                ? '#007bff'
+                                : '#f0f0f0',
+                        color:
+                            activeTab === 'style-extractor' ? '#fff' : '#000',
+                        border: 'none',
+                        width: '130px',
+                        borderRadius: '5px',
+                    }}
+                    onClick={() => setActiveTab('style-extractor')}
+                >
+                    Style Extractor
+                </button>
             </div>
 
             {/* Tab Content */}
@@ -97,6 +120,7 @@ export default function App(): ReactElement {
                 {activeTab === 'extractor' && <DataIdExtractor />}
                 {activeTab === 'viewer' && <JsonViewer />}
                 {activeTab === 'class-extractor' && <ClassExtractor />}
+                {activeTab === 'style-extractor' && <ExtractStyles />}
             </div>
 
             <Footer />
