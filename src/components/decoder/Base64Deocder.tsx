@@ -1,10 +1,11 @@
 import { ReactElement, useEffect, useState } from 'react';
 
-import Base64Input from './Base64Input';
-import JsonOutput from './JsonOutput';
+import JsonOutput from '../../shared/json-viewer/JsonOutput';
+import { decodeBase64String, groupByDay } from '../../utils/utils';
+import { DecodedEntry } from '../../types/types';
+
 import History from './History';
-import { decodeBase64String, groupByDay } from './utils';
-import { DecodedEntry } from './types';
+import Base64Input from './Base64Input';
 import UtidCopyButton from './UtIdCopyButton';
 
 const MAX_HISTORY_LENGTH = 20;

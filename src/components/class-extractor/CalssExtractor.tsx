@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, KeyboardEvent, ReactElement } from 'react';
 
-import JsonOutput from '../JsonOutput';
+import JsonOutput from '../../shared/json-viewer/JsonOutput';
 
 interface ClassExtractionResult {
     [className: string]: string[]; // Store multiple selectors for the same class

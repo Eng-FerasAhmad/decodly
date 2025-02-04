@@ -1,7 +1,8 @@
 import { ReactElement, useState } from 'react';
 
-import JsonOutput from './JsonOutput';
-import { HistoryGroup, DecodedEntry } from './types';
+import JsonOutput from '../../shared/json-viewer/JsonOutput';
+import { HistoryGroup, DecodedEntry } from '../../types/types';
+
 import HistoryTable from './TableHistory';
 
 interface Props {

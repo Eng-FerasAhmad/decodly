@@ -1,13 +1,12 @@
 import { ReactElement, useState } from 'react';
 
-import DataIdExtractor from './extractor/Extractor';
-import JsonViewer from './json-viewer/JsonViewer';
-import ClassExtractor from './class-extractor/CalssExtractor';
-import ExtractStyles from './style-extractor/StyleExtractor';
-import HtmlDomTree from './dom-creator/DomCreator';
-
-import Base64Decoder from './Base64Deocder';
-import Footer from './Footer';
+import DataIdExtractor from '../extractor/Extractor';
+import JsonViewer from '../json-viewer/JsonViewer';
+import ClassExtractor from '../class-extractor/CalssExtractor';
+import ExtractStyles from '../style-extractor/StyleExtractor';
+import HtmlDomTree from '../dom-creator/DomCreator';
+import Base64Decoder from '../decoder/Base64Deocder';
+import Footer from '../footer/Footer';
 
 export default function App(): ReactElement {
     const [activeTab, setActiveTab] = useState<

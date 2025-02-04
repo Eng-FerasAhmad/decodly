@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, ReactElement, useState } from 'react';
 
-import JsonOutput from '../JsonOutput';
+import JsonOutput from '../../shared/json-viewer/JsonOutput';
 
 interface DataIdAttributes {
     [key: string]: {

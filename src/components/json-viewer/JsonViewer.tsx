@@ -1,6 +1,6 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
 
-import JsonOutput from '../JsonOutput';
+import JsonOutput from '../../shared/json-viewer/JsonOutput';
 
 export default function JsonViewer(): ReactElement {
     const [jsonInput, setJsonInput] = useState<string>('');

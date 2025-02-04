@@ -1,6 +1,6 @@
 import { Fragment, ReactElement } from 'react';
 
-import { HistoryGroup, DecodedEntry } from './types';
+import { HistoryGroup, DecodedEntry } from '../../types/types';
 
 interface Props {
     history: HistoryGroup[];

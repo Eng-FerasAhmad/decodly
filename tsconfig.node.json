@@ -17,7 +17,16 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+
+        "paths": {
+            "src/*": ["./*"],
+            "components/*": ["./components/*"],
+            "context/*": ["./context/*"],
+            "shared/*": ["./shared/*"],
+            "utils/*": ["./utils/*"],
+            "types/*": ["./types/*"]
+        }
     },
     "include": ["vite.config.ts", "src", "vite-env.d.ts"]
 }

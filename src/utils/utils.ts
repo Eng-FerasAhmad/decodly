@@ -1,4 +1,4 @@
-import { DecodedEntry, HistoryGroup } from './types';
+import { DecodedEntry, HistoryGroup } from '../types/types';
 
 export const decodeBase64String = (base64Input: string): string => {
     const decodedString = atob(base64Input);
