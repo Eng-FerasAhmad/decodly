@@ -4,6 +4,7 @@ import DataIdExtractor from './extractor/Extractor';
 import JsonViewer from './json-viewer/JsonViewer';
 import ClassExtractor from './class-extractor/CalssExtractor';
 import ExtractStyles from './style-extractor/StyleExtractor';
+import HtmlDomTree from './dom-creator/DomCreator';
 
 import Base64Decoder from './Base64Deocder';
 import Footer from './Footer';
@@ -15,6 +16,7 @@ export default function App(): ReactElement {
         | 'viewer'
         | 'class-extractor'
         | 'style-extractor'
+        | 'dom-creator'
     >('decoder');
 
     return (
@@ -112,6 +114,21 @@ export default function App(): ReactElement {
                 >
                     Style Extractor
                 </button>
+                <button
+                    style={{
+                        padding: '10px 20px',
+                        cursor: 'pointer',
+                        backgroundColor:
+                            activeTab === 'dom-creator' ? '#007bff' : '#f0f0f0',
+                        color: activeTab === 'dom-creator' ? '#fff' : '#000',
+                        border: 'none',
+                        width: '130px',
+                        borderRadius: '5px',
+                    }}
+                    onClick={() => setActiveTab('dom-creator')}
+                >
+                    DOM creator
+                </button>
             </div>
 
             {/* Tab Content */}
@@ -121,6 +138,7 @@ export default function App(): ReactElement {
                 {activeTab === 'viewer' && <JsonViewer />}
                 {activeTab === 'class-extractor' && <ClassExtractor />}
                 {activeTab === 'style-extractor' && <ExtractStyles />}
+                {activeTab === 'dom-creator' && <HtmlDomTree />}
             </div>
 
             <Footer />
