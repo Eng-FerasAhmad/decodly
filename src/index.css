@@ -3,7 +3,6 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     font-size: 15px;
 }
 
@@ -74,7 +73,6 @@ body {
     &:focus {
         border: 1px solid #ccc;
         outline: none;
-        background-color: #ffffe6;
     }
 }
 
@@ -114,7 +112,6 @@ body {
     min-height: 400px;
     display: flex;
     flex-direction: column;
-
     flex: 1;
     margin: 0;
 }

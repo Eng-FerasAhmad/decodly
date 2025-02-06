@@ -1,50 +1,42 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import DataIdExtractor from '../extractor/Extractor';
-import JsonViewer from '../json-viewer/JsonViewer';
-import ClassExtractor from '../class-extractor/CalssExtractor';
-import ExtractStyles from '../style-extractor/StyleExtractor';
-import HtmlDomTree from '../dom-creator/DomCreator';
-import Base64Decoder from '../decoder/Base64Deocder';
-import Footer from '../footer/Footer';
-import ThemeToggle from '../../shared/toogle-theme/ToggleTheme';
-
-import Tabs from './Tabs';
-
-const tabItems = [
-    { id: 'decoder', label: 'Decoder', component: <Base64Decoder /> },
-    { id: 'extractor', label: 'Extractor', component: <DataIdExtractor /> },
-    { id: 'viewer', label: 'JSON Viewer', component: <JsonViewer /> },
-    {
-        id: 'class-extractor',
-        label: 'Class Extractor',
-        component: <ClassExtractor />,
-    },
-    {
-        id: 'style-extractor',
-        label: 'Style Extractor',
-        component: <ExtractStyles />,
-    },
-    { id: 'dom-creator', label: 'DOM Creator', component: <HtmlDomTree /> },
-];
+import Footer from 'components/footer/Footer';
+import Base64Decoder from 'components/decoder/Base64Deocder';
+import DataIdExtractor from 'components/extractor/Extractor';
+import JsonViewer from 'components/json-viewer/JsonViewer';
+import ClassExtractor from 'components/class-extractor/CalssExtractor';
+import ExtractStyles from 'components/style-extractor/StyleExtractor';
+import HtmlDomTree from 'components/dom-creator/DomCreator';
+import Header from 'components/app/Header';
 
 export default function App(): ReactElement {
-    const [activeTab, setActiveTab] = useState(tabItems[0].id);
-
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col items-center p-6">
-            <ThemeToggle />
-            <div className="w-full max-w-4xl p-4 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
-                <Tabs
-                    items={tabItems}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                />
-                <div className="mt-6 w-full">
-                    {tabItems.find((tab) => tab.id === activeTab)?.component}
+        <Router>
+            <Header />
+            <div className="pt-16 min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col items-center p-6">
+                <div className="mt-6 w-full  p-4 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
+                    <Routes>
+                        <Route path="/" element={<Base64Decoder />} />
+                        <Route path="/decoder" element={<Base64Decoder />} />
+                        <Route
+                            path="/extractor"
+                            element={<DataIdExtractor />}
+                        />
+                        <Route path="/viewer" element={<JsonViewer />} />
+                        <Route
+                            path="/class-extractor"
+                            element={<ClassExtractor />}
+                        />
+                        <Route
+                            path="/style-extractor"
+                            element={<ExtractStyles />}
+                        />
+                        <Route path="/dom-creator" element={<HtmlDomTree />} />
+                    </Routes>
                 </div>
             </div>
             <Footer />
-        </div>
+        </Router>
     );
 }

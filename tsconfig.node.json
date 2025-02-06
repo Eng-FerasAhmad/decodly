@@ -1,32 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "lib": ["ES2023", "DOM", "DOM.Iterable"],
-        "module": "ESNext",
+        "composite": true,
         "skipLibCheck": true,
-
-        /* Bundler mode */
+        "module": "ESNext",
         "moduleResolution": "bundler",
-        "allowImportingTsExtensions": false,
-        "isolatedModules": true,
-        "moduleDetection": "force",
-        "noEmit": true,
-        "jsx": "react-jsx",
-
-        /* Linting */
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-
-        "paths": {
-            "src/*": ["./*"],
-            "components/*": ["./components/*"],
-            "context/*": ["./context/*"],
-            "shared/*": ["./shared/*"],
-            "utils/*": ["./utils/*"],
-            "types/*": ["./types/*"]
-        }
+        "allowSyntheticDefaultImports": true
     },
-    "include": ["vite.config.ts", "src", "vite-env.d.ts"]
+    "include": ["vite.config.ts"]
 }
