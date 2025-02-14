@@ -22,25 +22,37 @@ export default function JsonOutput({
     copyJsonLabel,
 }: Props): ReactElement {
     return (
-        <div className="json-output-container">
-            <button onClick={copyToClipboard} className="copy-button">
-                {copyJsonLabel}
-            </button>
-            <button onClick={collapseHandler} className="collapse-button">
-                {collapseLabel}
-            </button>
-            {error && <p className="error-message">{error}</p>}
+        <div className="bg-light p-6 rounded-2xl shadow-lg border border-secondary">
+            <div className="flex justify-between mb-4">
+                <button
+                    onClick={copyToClipboard}
+                    className="px-4 py-2 bg-primary text-dark font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
+                >
+                    {copyJsonLabel}
+                </button>
+                <button
+                    onClick={collapseHandler}
+                    className="px-4 py-2 bg-accent text-white font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
+                >
+                    {collapseLabel}
+                </button>
+            </div>
+
+            {error && (
+                <p className="mb-4 p-3 bg-red-600 text-white text-sm rounded-lg">
+                    {error}
+                </p>
+            )}
+
             {typeof jsonOutput === 'object' && jsonOutput !== null && (
-                <div className="json-output">
-                    <JsonView
-                        shortenTextAfterLength={100}
-                        enableClipboard={true}
-                        displayDataTypes={false}
-                        value={jsonOutput as object}
-                        style={vscodeTheme}
-                        collapsed={collapse} // Collapse boolean for levels
-                    />
-                </div>
+                <JsonView
+                    shortenTextAfterLength={100}
+                    enableClipboard={true}
+                    displayDataTypes={false}
+                    value={jsonOutput as object}
+                    style={vscodeTheme}
+                    collapsed={collapse}
+                />
             )}
         </div>
     );
