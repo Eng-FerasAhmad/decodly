@@ -16,9 +16,9 @@ export default function HtmlInputSection({
     totalCount,
 }: HtmlInputSectionProps) {
     return (
-        <div className="bg-dark p-6 rounded-2xl shadow-lg border border-secondary">
+        <div className="bg-dark" data-testid="html-input-section">
             <textarea
-                className="w-full h-40 p-3 border  bg-[#1E1E1E] text-white rounded-lg focus:outline-none resize-none placeholder-gray-400"
+                className="w-full h-80 p-3 border  bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
                 placeholder="Paste your HTML code here..."
                 value={htmlInput}
                 onChange={onHtmlInputChange}

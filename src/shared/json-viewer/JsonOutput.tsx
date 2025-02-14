@@ -22,17 +22,17 @@ export default function JsonOutput({
     copyJsonLabel,
 }: Props): ReactElement {
     return (
-        <div className="bg-light p-6 rounded-2xl shadow-lg border border-secondary">
+        <div className="bg-light p-6 rounded-xl shadow-lg border border-secondary">
             <div className="flex justify-between mb-4">
                 <button
                     onClick={copyToClipboard}
-                    className="px-4 py-2 bg-primary text-dark font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
+                    className="px-4 bg-green-900 py-2 text-dark font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
                 >
                     {copyJsonLabel}
                 </button>
                 <button
                     onClick={collapseHandler}
-                    className="px-4 py-2 bg-accent text-white font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
+                    className="px-4 py-2 bg-green-900 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-80 transition"
                 >
                     {collapseLabel}
                 </button>
@@ -50,8 +50,13 @@ export default function JsonOutput({
                     enableClipboard={true}
                     displayDataTypes={false}
                     value={jsonOutput as object}
-                    style={vscodeTheme}
+                    style={{
+                        ...vscodeTheme,
+                        fontSize: '16px',
+                        fontFamily: 'monospace',
+                    }}
                     collapsed={collapse}
+                    className={'font-size-18'}
                 />
             )}
         </div>

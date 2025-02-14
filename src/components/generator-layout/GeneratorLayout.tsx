@@ -1,12 +1,12 @@
 import { useState, ChangeEvent, KeyboardEvent, ReactElement } from 'react';
 
-import HtmlInputSection from 'components/generator-layout/HTMLInputSection';
 import ResultSection from 'components/generator-layout/ResultSection';
 import FilterControls from 'components/generator-layout/FilterControls';
+import HtmlInputSection from 'components/generator-layout/HTMLInputSection';
 
 interface Props {
     title: string;
-    events: (
+    events?: (
         htmlInput: string,
         classPrefix?: string,
         exactClassName?: string,
@@ -17,6 +17,9 @@ interface Props {
     error: string | null;
     totalCount: number;
     showFilters?: boolean;
+    onEdit: (text: string) => void;
+    inputValue: string;
+    handleSubmit: () => void;
 }
 
 export default function ExtractorLayout({
@@ -26,23 +29,28 @@ export default function ExtractorLayout({
     jsonOutput,
     error,
     totalCount,
+    onEdit,
+    inputValue,
+    handleSubmit,
     showFilters = false,
 }: Props): ReactElement {
-    const [htmlInput, setHtmlInput] = useState<string>('');
     const [classPrefix, setClassPrefix] = useState<string>('id-StoryElement');
     const [exactClassName, setExactClassName] = useState<string>('');
     const [oneWordAfterPrefix, setOneWordAfterPrefix] = useState<string>('');
 
     const handleHtmlInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setHtmlInput(e.target.value);
+        onEdit(e.target.value);
     };
 
     const handleClickEvent = () => {
-        events(htmlInput, classPrefix, exactClassName, oneWordAfterPrefix);
+        handleSubmit();
+        if (events) {
+            events(inputValue, classPrefix, exactClassName, oneWordAfterPrefix);
+        }
     };
 
     const handleClear = () => {
-        setHtmlInput('');
+        onEdit('');
         clearFunction();
     };
 
@@ -62,7 +70,7 @@ export default function ExtractorLayout({
                 <div className="w-full lg:w-1/2">
                     <div className="flex flex-col gap-6">
                         <HtmlInputSection
-                            htmlInput={htmlInput}
+                            htmlInput={inputValue}
                             onHtmlInputChange={handleHtmlInputChange}
                             onEventClick={handleClickEvent}
                             onClear={handleClear}

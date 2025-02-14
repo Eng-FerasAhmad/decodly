@@ -1,42 +1,63 @@
 import { ReactElement } from 'react';
 
 import useClassExtractor from 'components/class-extractor/useClassExtractor';
+import { useApp } from 'src/context/AppContext';
 import ExtractorLayout from 'components/generator-layout/GeneratorLayout';
-import { useExtractor } from 'components/generator-layout/useExtractor';
 
 export default function ClassExtractor(): ReactElement {
-    const { clearResults } = useClassExtractor();
-    const { jsonOutput, error, totalCount, handleExtract } = useExtractor<
-        Record<string, string[]>,
-        [string, string, string, string]
-    >();
+    const { extractClasses, clearResults } = useClassExtractor();
+    const {
+        jsonOutput,
+        error,
+        totalCount,
+        classInput,
+        setError,
+        setTotalCount,
+        setClassInput,
+        setJsonOutput,
+    } = useApp();
 
-    const extractClasses = () => {
-        console.log('Extracting classes');
+    const handleExtract = (
+        htmlInput: string,
+        classPrefix?: string,
+        exactClassName?: string,
+        oneWordAfterPrefix?: string
+    ) => {
+        try {
+            const result = extractClasses(
+                htmlInput,
+                classPrefix || '',
+                exactClassName || '',
+                oneWordAfterPrefix || ''
+            );
+            setJsonOutput(result);
+            setTotalCount(Object.keys(result || {}).length);
+            setError(null);
+        } catch {
+            setError('An error occurred while extracting classes.');
+        }
+    };
+
+    const handleSubmit = () => {
+        if (classInput.trim()) {
+            handleExtract(classInput);
+        } else {
+            setError('Please enter valid HTML input.');
+        }
     };
 
     return (
         <ExtractorLayout
             title="Extract Class Names from HTML"
-            events={(
-                htmlInput,
-                classPrefix,
-                exactClassName,
-                oneWordAfterPrefix
-            ) =>
-                handleExtract(
-                    extractClasses,
-                    htmlInput,
-                    classPrefix!,
-                    exactClassName!,
-                    oneWordAfterPrefix!
-                )
-            }
+            events={handleExtract}
             clearFunction={clearResults}
             jsonOutput={jsonOutput}
             error={error}
             totalCount={totalCount}
             showFilters={true}
+            onEdit={setClassInput}
+            inputValue={classInput}
+            handleSubmit={handleSubmit}
         />
     );
 }

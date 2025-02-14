@@ -10,7 +10,7 @@ export default function ResultSection({
     error,
 }: ResultSectionProps) {
     return (
-        <div className="bg-dark">
+        <div className="bg-[#1e1e1e]">
             <div className="bg-light">
                 <JsonOutput
                     jsonOutput={jsonOutput}
