@@ -24,7 +24,6 @@ export default function Base64Decoder(): ReactElement {
             jsonOutput={jsonOutput}
             error={error}
             totalCount={totalCount}
-            showFilters={false}
             onEdit={setBase64Input}
             inputValue={base64Input}
             handleSubmit={handleSubmit}

@@ -1,22 +1,15 @@
-import { useState, ChangeEvent, KeyboardEvent, ReactElement } from 'react';
+import { ChangeEvent, ReactElement, ReactNode } from 'react';
 
 import ResultSection from 'components/generator-layout/ResultSection';
-import FilterControls from 'components/generator-layout/FilterControls';
 import HtmlInputSection from 'components/generator-layout/HTMLInputSection';
 
 interface Props {
     title: string;
-    events?: (
-        htmlInput: string,
-        classPrefix?: string,
-        exactClassName?: string,
-        oneWordAfterPrefix?: string
-    ) => void;
     clearFunction: () => void;
     jsonOutput: unknown;
     error: string | null;
     totalCount: number;
-    showFilters?: boolean;
+    filters?: ReactNode;
     onEdit: (text: string) => void;
     inputValue: string;
     handleSubmit: () => void;
@@ -24,7 +17,6 @@ interface Props {
 
 export default function ExtractorLayout({
     title,
-    events,
     clearFunction,
     jsonOutput,
     error,
@@ -32,32 +24,19 @@ export default function ExtractorLayout({
     onEdit,
     inputValue,
     handleSubmit,
-    showFilters = false,
+    filters,
 }: Props): ReactElement {
-    const [classPrefix, setClassPrefix] = useState<string>('id-StoryElement');
-    const [exactClassName, setExactClassName] = useState<string>('');
-    const [oneWordAfterPrefix, setOneWordAfterPrefix] = useState<string>('');
-
     const handleHtmlInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onEdit(e.target.value);
     };
 
     const handleClickEvent = () => {
         handleSubmit();
-        if (events) {
-            events(inputValue, classPrefix, exactClassName, oneWordAfterPrefix);
-        }
     };
 
     const handleClear = () => {
         onEdit('');
         clearFunction();
-    };
-
-    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleClickEvent();
-        }
     };
 
     return (
@@ -76,23 +55,7 @@ export default function ExtractorLayout({
                             onClear={handleClear}
                             totalCount={totalCount}
                         />
-                        {showFilters && (
-                            <FilterControls
-                                classPrefix={classPrefix}
-                                exactClassName={exactClassName}
-                                oneWordAfterPrefix={oneWordAfterPrefix}
-                                onClassPrefixChange={(e) =>
-                                    setClassPrefix(e.target.value)
-                                }
-                                onExactClassNameChange={(e) =>
-                                    setExactClassName(e.target.value)
-                                }
-                                onOneWordAfterPrefixChange={(e) =>
-                                    setOneWordAfterPrefix(e.target.value)
-                                }
-                                onKeyDown={handleKeyDown}
-                            />
-                        )}
+                        {filters}
                     </div>
                 </div>
 

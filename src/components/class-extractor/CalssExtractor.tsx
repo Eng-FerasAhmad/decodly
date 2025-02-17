@@ -1,7 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState, KeyboardEvent } from 'react';
 
 import useClassExtractor from 'components/class-extractor/useClassExtractor';
 import { useApp } from 'src/context/AppContext';
+import FilterControls from 'components/class-extractor/FilterControls';
 import ExtractorLayout from 'components/generator-layout/GeneratorLayout';
 
 export default function ClassExtractor(): ReactElement {
@@ -17,18 +18,18 @@ export default function ClassExtractor(): ReactElement {
         setJsonOutput,
     } = useApp();
 
-    const handleExtract = (
-        htmlInput: string,
-        classPrefix?: string,
-        exactClassName?: string,
-        oneWordAfterPrefix?: string
-    ) => {
+    // Missing states for filters
+    const [classPrefix, setClassPrefix] = useState<string>('id-StoryElement');
+    const [exactClassName, setExactClassName] = useState<string>('');
+    const [oneWordAfterPrefix, setOneWordAfterPrefix] = useState<string>('');
+
+    const handleExtract = () => {
         try {
             const result = extractClasses(
-                htmlInput,
-                classPrefix || '',
-                exactClassName || '',
-                oneWordAfterPrefix || ''
+                classInput,
+                classPrefix,
+                exactClassName,
+                oneWordAfterPrefix
             );
             setJsonOutput(result);
             setTotalCount(Object.keys(result || {}).length);
@@ -40,24 +41,43 @@ export default function ClassExtractor(): ReactElement {
 
     const handleSubmit = () => {
         if (classInput.trim()) {
-            handleExtract(classInput);
+            handleExtract();
         } else {
             setError('Please enter valid HTML input.');
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSubmit();
         }
     };
 
     return (
         <ExtractorLayout
             title="Extract Class Names from HTML"
-            events={handleExtract}
             clearFunction={clearResults}
             jsonOutput={jsonOutput}
             error={error}
             totalCount={totalCount}
-            showFilters={true}
             onEdit={setClassInput}
             inputValue={classInput}
             handleSubmit={handleSubmit}
+            filters={
+                <FilterControls
+                    classPrefix={classPrefix}
+                    exactClassName={exactClassName}
+                    oneWordAfterPrefix={oneWordAfterPrefix}
+                    onClassPrefixChange={(e) => setClassPrefix(e.target.value)}
+                    onExactClassNameChange={(e) =>
+                        setExactClassName(e.target.value)
+                    }
+                    onOneWordAfterPrefixChange={(e) =>
+                        setOneWordAfterPrefix(e.target.value)
+                    }
+                    onKeyDown={handleKeyDown}
+                />
+            }
         />
     );
 }

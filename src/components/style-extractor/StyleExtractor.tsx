@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
-const ExtractStyles: React.FC = () => {
+import ColorList from 'components/style-extractor/ColorList';
+import FontList from 'components/style-extractor/FontList';
+
+export default function ExtractStyles(): ReactElement {
     const [backgroundColors, setBackgroundColors] = useState<string[]>([]);
     const [fontColors, setFontColors] = useState<string[]>([]);
     const [fonts, setFonts] = useState<string[]>([]);
     const [htmlContent, setHtmlContent] = useState<string>('');
 
-    const extractStyles = () => {
+    const extractStyles = (): void => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
         const elements = Array.from(doc.body.getElementsByTagName('*'));
@@ -16,20 +19,14 @@ const ExtractStyles: React.FC = () => {
         const fontSet = new Set<string>();
 
         elements.forEach((element) => {
-            const computedStyles = window.getComputedStyle(element);
-
-            // Extract background colors
+            const computedStyles = window.getComputedStyle(
+                element as HTMLElement
+            );
             bgColorSet.add(computedStyles.backgroundColor);
-
-            // Type assertion to access `.style` property
             if ((element as HTMLElement).style.backgroundColor) {
                 bgColorSet.add((element as HTMLElement).style.backgroundColor);
             }
-
-            // Extract font colors
             fontColorSet.add(computedStyles.color);
-
-            // Extract font family
             fontSet.add(computedStyles.fontFamily);
         });
 
@@ -48,73 +45,49 @@ const ExtractStyles: React.FC = () => {
         setFonts([...fontSet]);
     };
 
+    const clearStyles = (): void => {
+        setHtmlContent('');
+        setBackgroundColors([]);
+        setFontColors([]);
+        setFonts([]);
+    };
+
     return (
-        <div>
-            <h2>Paste HTML to Extract Styles</h2>
+        <div className="p-6 max-w-3xl mx-auto bg-dark">
+            <h2 className="text-xl font-bold mb-4 dark:text-white">
+                Paste HTML to Extract Styles
+            </h2>
             <textarea
-                rows={10}
-                cols={50}
+                className="w-full h-80 p-3 border  bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
+                rows={6}
                 value={htmlContent}
                 onChange={(e) => setHtmlContent(e.target.value)}
             />
-            <button onClick={extractStyles}>Extract</button>
-
-            {/* Background Colors */}
-            <h3>Extracted Background Colors</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                {backgroundColors.map((color, index) => (
-                    <div
-                        key={index}
-                        style={{
-                            width: '80px',
-                            height: '80px',
-                            backgroundColor: color,
-                            borderRadius: '5px',
-                            border: '1px solid #000',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '10px',
-                            color: '#fff',
-                            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-                            position: 'relative',
-                            cursor: 'pointer',
-                        }}
-                        title={color} // Show color value on hover
-                    >
-                        {color}
-                    </div>
-                ))}
+            <div className="flex gap-4 mt-4">
+                <button
+                    className="px-4 py-2 text-white  bg-[#1FBFBF] text-[#121212] font-semibold rounded-lg shadow-md hover:bg-[#17A2A2] transition"
+                    onClick={extractStyles}
+                >
+                    Extract
+                </button>
+                <button
+                    className="px-4 py-2 bg-[#904BBE] text-white font-semibold rounded-lg shadow-md hover:bg-[#7C3EA4] transition"
+                    onClick={clearStyles}
+                >
+                    Clear
+                </button>
             </div>
 
-            {/* Font Colors */}
-            <h3>Extracted Font Colors</h3>
-            <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                {fontColors.map((color, index) => (
-                    <li
-                        key={index}
-                        style={{
-                            color: color,
-                            listStyle: 'none',
-                            padding: '5px',
-                        }}
-                    >
-                        {color}
-                    </li>
-                ))}
-            </ul>
-
-            {/* Font Families */}
-            <h3>Extracted Font Families</h3>
-            <ul>
-                {fonts.map((font, index) => (
-                    <li key={index} style={{ fontFamily: font }}>
-                        {font}
-                    </li>
-                ))}
-            </ul>
+            {backgroundColors.length > 0 && (
+                <ColorList
+                    colors={backgroundColors}
+                    title="Extracted Background Colors"
+                />
+            )}
+            {fontColors.length > 0 && (
+                <ColorList colors={fontColors} title="Extracted Font Colors" />
+            )}
+            {fonts.length > 0 && <FontList fonts={fonts} />}
         </div>
     );
-};
-
-export default ExtractStyles;
+}

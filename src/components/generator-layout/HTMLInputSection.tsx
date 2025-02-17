@@ -27,7 +27,7 @@ export default function HtmlInputSection({
                 <div className="flex space-x-3">
                     <button
                         onClick={onEventClick}
-                        className="px-4 py-2 bg-[#1FBFBF] text-[#121212] font-semibold rounded-lg shadow-md hover:bg-[#17A2A2] transition"
+                        className="px-4 py-2 text-white  bg-[#1FBFBF] text-[#121212] font-semibold rounded-lg shadow-md hover:bg-[#17A2A2] transition"
                     >
                         Extract
                     </button>
