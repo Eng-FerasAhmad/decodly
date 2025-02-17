@@ -12,15 +12,7 @@ export default function ResultSection({
     return (
         <div className="bg-[#1e1e1e]">
             <div className="bg-light">
-                <JsonOutput
-                    jsonOutput={jsonOutput}
-                    error={error}
-                    collapse={false}
-                    collapseLabel="Collapse"
-                    collapseHandler={() => console.log('collapse')}
-                    copyToClipboard={() => console.log('copy')}
-                    copyJsonLabel="Copy JSON"
-                />
+                <JsonOutput jsonOutput={jsonOutput} error={error} />
             </div>
         </div>
     );

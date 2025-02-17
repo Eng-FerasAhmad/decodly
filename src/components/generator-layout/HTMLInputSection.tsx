@@ -6,6 +6,7 @@ interface HtmlInputSectionProps {
     onEventClick: () => void;
     onClear: () => void;
     totalCount: number;
+    hasCount?: boolean;
 }
 
 export default function HtmlInputSection({
@@ -14,6 +15,7 @@ export default function HtmlInputSection({
     onEventClick,
     onClear,
     totalCount,
+    hasCount,
 }: HtmlInputSectionProps) {
     return (
         <div className="bg-dark" data-testid="html-input-section">
@@ -38,9 +40,11 @@ export default function HtmlInputSection({
                         Clear
                     </button>
                 </div>
-                <strong className="text-[#6E6DDF]">
-                    Total Items Found: {totalCount}
-                </strong>
+                {hasCount && (
+                    <strong className="text-[#6E6DDF]">
+                        Total Items Found: {totalCount}
+                    </strong>
+                )}
             </div>
         </div>
     );

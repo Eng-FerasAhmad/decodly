@@ -20,7 +20,7 @@ export default function FilterControls({
     onKeyDown,
 }: FilterControlsProps) {
     return (
-        <div className="bg-dark p-6 rounded-2xl shadow-lg border border-secondary">
+        <div className="bg-dark">
             <div className="space-y-4">
                 <div>
                     <label

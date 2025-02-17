@@ -39,6 +39,7 @@ export default function DataIdExtractor(): ReactElement {
             onEdit={setHtmlInput}
             inputValue={htmlInput}
             handleSubmit={handleSubmit}
+            hasCount={true}
             filters={
                 <DataIdFilterControls
                     attributeName={attributeName}

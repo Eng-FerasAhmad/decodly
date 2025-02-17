@@ -1,7 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import { useTheme } from '../../hooks/useTheme';
-
 import Logo from 'shared/logo/Logo';
 
 const NAV_ITEMS = [
@@ -22,7 +20,6 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
-    const { theme, setTheme } = useTheme();
     const { pathname } = useLocation();
 
     return (
@@ -61,15 +58,6 @@ export default function Header() {
                 >
                     GitHub
                 </a>
-
-                <button
-                    onClick={() =>
-                        setTheme(theme === 'dark' ? 'light' : 'dark')
-                    }
-                    className="p-2 rounded-md transition bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white"
-                >
-                    {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
-                </button>
             </div>
         </header>
     );

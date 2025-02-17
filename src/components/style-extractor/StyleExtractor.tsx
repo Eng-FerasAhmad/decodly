@@ -9,6 +9,21 @@ export default function ExtractStyles(): ReactElement {
     const [fonts, setFonts] = useState<string[]>([]);
     const [htmlContent, setHtmlContent] = useState<string>('');
 
+    // Function to convert RGB/RGBA to HEX
+    const rgbToHex = (rgb: string): string => {
+        const rgbArray = rgb.match(/\d+/g);
+        if (!rgbArray || rgbArray.length < 3) return rgb; // Return original if not RGB format
+
+        const r = parseInt(rgbArray[0], 10);
+        const g = parseInt(rgbArray[1], 10);
+        const b = parseInt(rgbArray[2], 10);
+
+        return `#${((1 << 24) | (r << 16) | (g << 8) | b)
+            .toString(16)
+            .slice(1)
+            .toUpperCase()}`;
+    };
+
     const extractStyles = (): void => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -22,11 +37,24 @@ export default function ExtractStyles(): ReactElement {
             const computedStyles = window.getComputedStyle(
                 element as HTMLElement
             );
-            bgColorSet.add(computedStyles.backgroundColor);
+
+            let bgColor = computedStyles.backgroundColor;
+            let fontColor = computedStyles.color;
+
+            // Convert colors to HEX if they are in rgb/rgba format
+            if (bgColor.startsWith('rgb')) bgColor = rgbToHex(bgColor);
+            if (fontColor.startsWith('rgb')) fontColor = rgbToHex(fontColor);
+
             if ((element as HTMLElement).style.backgroundColor) {
-                bgColorSet.add((element as HTMLElement).style.backgroundColor);
+                let inlineBgColor = (element as HTMLElement).style
+                    .backgroundColor;
+                if (inlineBgColor.startsWith('rgb'))
+                    inlineBgColor = rgbToHex(inlineBgColor);
+                bgColorSet.add(inlineBgColor);
             }
-            fontColorSet.add(computedStyles.color);
+
+            bgColorSet.add(bgColor);
+            fontColorSet.add(fontColor);
             fontSet.add(computedStyles.fontFamily);
         });
 
@@ -58,14 +86,14 @@ export default function ExtractStyles(): ReactElement {
                 Paste HTML to Extract Styles
             </h2>
             <textarea
-                className="w-full h-80 p-3 border  bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
+                className="w-full h-80 p-3 border bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
                 rows={6}
                 value={htmlContent}
                 onChange={(e) => setHtmlContent(e.target.value)}
             />
             <div className="flex gap-4 mt-4">
                 <button
-                    className="px-4 py-2 text-white  bg-[#1FBFBF] text-[#121212] font-semibold rounded-lg shadow-md hover:bg-[#17A2A2] transition"
+                    className="px-4 py-2 text-white bg-[#1FBFBF] text-[#121212] font-semibold rounded-lg shadow-md hover:bg-[#17A2A2] transition"
                     onClick={extractStyles}
                 >
                     Extract

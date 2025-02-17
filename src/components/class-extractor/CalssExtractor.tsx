@@ -63,6 +63,7 @@ export default function ClassExtractor(): ReactElement {
             onEdit={setClassInput}
             inputValue={classInput}
             handleSubmit={handleSubmit}
+            hasCount={true}
             filters={
                 <FilterControls
                     classPrefix={classPrefix}
