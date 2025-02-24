@@ -22,6 +22,7 @@ export default function JsonViewer(): ReactElement {
             inputValue={jsonInput}
             handleSubmit={handleSubmit}
             filters={null}
+            placeholder="Paste your JSON here"
         />
     );
 }

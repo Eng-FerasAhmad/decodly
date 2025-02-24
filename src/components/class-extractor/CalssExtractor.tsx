@@ -64,6 +64,7 @@ export default function ClassExtractor(): ReactElement {
             inputValue={classInput}
             handleSubmit={handleSubmit}
             hasCount={true}
+            placeholder="Paste your HTML code here..."
             filters={
                 <FilterControls
                     classPrefix={classPrefix}

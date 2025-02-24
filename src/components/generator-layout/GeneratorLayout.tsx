@@ -14,6 +14,7 @@ interface Props {
     inputValue: string;
     handleSubmit: () => void;
     hasCount?: boolean;
+    placeholder?: string;
 }
 
 export default function ExtractorLayout({
@@ -27,6 +28,7 @@ export default function ExtractorLayout({
     handleSubmit,
     filters,
     hasCount,
+    placeholder,
 }: Props): ReactElement {
     const handleHtmlInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onEdit(e.target.value);
@@ -57,6 +59,7 @@ export default function ExtractorLayout({
                             onClear={handleClear}
                             totalCount={totalCount}
                             hasCount={hasCount}
+                            placeholder={placeholder}
                         />
                         {filters}
                     </div>

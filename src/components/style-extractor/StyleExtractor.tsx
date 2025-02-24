@@ -90,6 +90,7 @@ export default function ExtractStyles(): ReactElement {
                 rows={6}
                 value={htmlContent}
                 onChange={(e) => setHtmlContent(e.target.value)}
+                placeholder="Paste HTML content here..."
             />
             <div className="flex gap-4 mt-4">
                 <button

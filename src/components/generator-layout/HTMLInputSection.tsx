@@ -7,6 +7,7 @@ interface HtmlInputSectionProps {
     onClear: () => void;
     totalCount: number;
     hasCount?: boolean;
+    placeholder?: string;
 }
 
 export default function HtmlInputSection({
@@ -16,12 +17,13 @@ export default function HtmlInputSection({
     onClear,
     totalCount,
     hasCount,
+    placeholder,
 }: HtmlInputSectionProps) {
     return (
         <div className="bg-dark" data-testid="html-input-section">
             <textarea
                 className="w-full h-80 p-3 border  bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
-                placeholder="Paste your HTML code here..."
+                placeholder={placeholder}
                 value={htmlInput}
                 onChange={onHtmlInputChange}
             />

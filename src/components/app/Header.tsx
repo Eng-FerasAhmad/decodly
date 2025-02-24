@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import Logo from 'shared/logo/Logo';
+import { GithubSymbol } from 'shared/icons/GitHubIcon';
 
 const NAV_ITEMS = [
     { id: 'decoder', label: 'Decoder', path: '/decoder' },
@@ -49,16 +50,14 @@ export default function Header() {
                 })}
             </nav>
 
-            <div className="flex items-center space-x-4">
-                <a
-                    href="https://github.com/yourgithubrepo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-900 dark:text-white transition hover:text-blue-500"
-                >
-                    GitHub
-                </a>
-            </div>
+            <a
+                href="https://github.com/Eng-FerasAhmad/decodly"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-4"
+            >
+                <GithubSymbol size={28} color="#fff" />
+            </a>
         </header>
     );
 }

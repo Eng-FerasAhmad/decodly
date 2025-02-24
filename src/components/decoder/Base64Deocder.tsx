@@ -27,6 +27,7 @@ export default function Base64Decoder(): ReactElement {
             onEdit={setBase64Input}
             inputValue={base64Input}
             handleSubmit={handleSubmit}
+            placeholder="Paste your HTML code here..."
         />
     );
 }

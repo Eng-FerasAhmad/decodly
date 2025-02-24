@@ -40,6 +40,7 @@ export default function DataIdExtractor(): ReactElement {
             inputValue={htmlInput}
             handleSubmit={handleSubmit}
             hasCount={true}
+            placeholder="Paste your HTML code here..."
             filters={
                 <DataIdFilterControls
                     attributeName={attributeName}
