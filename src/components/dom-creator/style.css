@@ -1,0 +1,16 @@
+.custom-link {
+    stroke: white !important;
+    stroke-width: 2px !important;
+}
+
+.custom-node circle {
+    fill: white !important;
+    stroke: white !important;
+    stroke-width: 2px !important;
+}
+
+.custom-node text {
+    fill: white !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+}

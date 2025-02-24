@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect, useMemo, ReactElement } from 'react';
 import Tree from 'react-d3-tree';
 
+import './style.css';
+import { ReactFullScreen } from 'shared/full-screen/FullScreen';
+
 interface TreeNode {
     name: string;
+    attributes?: Record<string, string>;
     children?: TreeNode[];
 }
 
@@ -12,6 +16,7 @@ export default function HtmlDomTree(): ReactElement {
     const [treeData, setTreeData] = useState<TreeNode | null>(null);
     const [submitted, setSubmitted] = useState<boolean>(false);
     const treeContainerRef = useRef<HTMLDivElement | null>(null);
+    const [isFullscreen, setFullscreen] = useState<boolean>(false);
 
     const parseHtmlToTree = (): void => {
         setSubmitted(true);
@@ -25,10 +30,21 @@ export default function HtmlDomTree(): ReactElement {
                 return;
             }
 
-            const buildTree = (node: Element): TreeNode => ({
-                name: `${node.tagName.toLowerCase()} (ID: ${node.getAttribute('data-id') || 'N/A'})`,
-                children: Array.from(node.children).map(buildTree),
-            });
+            const buildTree = (node: Element): TreeNode => {
+                const nodeAttributes: Record<string, string> = {};
+                if (node.hasAttribute(attribute)) {
+                    nodeAttributes[attribute] =
+                        node.getAttribute(attribute) || '';
+                }
+
+                return {
+                    name: nodeAttributes[attribute]
+                        ? `${node.tagName.toLowerCase()} (${nodeAttributes[attribute]})`
+                        : node.tagName.toLowerCase(),
+                    attributes: nodeAttributes,
+                    children: Array.from(node.children).map(buildTree),
+                };
+            };
 
             setTreeData(buildTree(rootElement));
         } catch (error) {
@@ -46,18 +62,29 @@ export default function HtmlDomTree(): ReactElement {
     const memoizedTree = useMemo(() => {
         return treeData ? (
             <div className="p-4 mt-4 w-full" ref={treeContainerRef}>
-                <div style={{ width: '100%', height: '500px' }}>
-                    <Tree
-                        data={treeData}
-                        orientation="vertical"
-                        collapsible
-                        translate={{ x: 200, y: 100 }}
-                        zoomable
-                    />
-                </div>
+                <ReactFullScreen
+                    isFullscreen={isFullscreen}
+                    onToggle={setFullscreen}
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            height: isFullscreen ? '100vh' : 600,
+                        }}
+                    >
+                        <Tree
+                            data={treeData}
+                            orientation="vertical"
+                            collapsible
+                            translate={{ x: 200, y: 100 }}
+                            zoomable
+                            pathClassFunc={() => 'custom-link'}
+                        />
+                    </div>
+                </ReactFullScreen>
             </div>
         ) : null;
-    }, [treeData]);
+    }, [treeData, isFullscreen]);
 
     return (
         <div className="p-6 mx-auto bg-dark rounded-lg shadow-md">
@@ -110,6 +137,14 @@ export default function HtmlDomTree(): ReactElement {
                 >
                     Clear Tree
                 </button>
+                {treeData && (
+                    <button
+                        className="px-4 py-2 bg-[#904BBE] text-white font-semibold rounded-lg shadow-md hover:bg-[#7C3EA4] transition"
+                        onClick={() => setFullscreen(!isFullscreen)}
+                    >
+                        Full Screen
+                    </button>
+                )}
             </div>
 
             {submitted && !treeData && (
