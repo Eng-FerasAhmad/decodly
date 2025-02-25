@@ -22,7 +22,7 @@ function ClearResultsOnRouteChange() {
 
     useEffect(() => {
         clearResults();
-    }, [location.pathname]);
+    }, [location.pathname, clearResults]);
 
     return null;
 }

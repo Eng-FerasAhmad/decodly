@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo, ReactElement } from 'react';
-import Tree from 'react-d3-tree';
+import { Tree } from 'react-d3-tree';
 
 import './style.css';
 import { ReactFullScreen } from 'shared/full-screen/FullScreen';
