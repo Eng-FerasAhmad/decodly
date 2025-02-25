@@ -91,6 +91,7 @@ export default function ExtractStyles(): ReactElement {
                 value={htmlContent}
                 onChange={(e) => setHtmlContent(e.target.value)}
                 placeholder="Paste HTML content here..."
+                autoFocus={true}
             />
             <div className="flex gap-4 mt-4">
                 <button

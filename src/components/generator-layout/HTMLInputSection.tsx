@@ -26,6 +26,7 @@ export default function HtmlInputSection({
                 placeholder={placeholder}
                 value={htmlInput}
                 onChange={onHtmlInputChange}
+                autoFocus={true}
             />
             <div className="flex justify-between items-center mt-4">
                 <div className="flex space-x-3">

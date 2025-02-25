@@ -22,6 +22,7 @@ export default function Base64Input({
                 value={base64Input}
                 onChange={(e) => setBase64Input(e.target.value)}
                 className="textarea"
+                autoFocus={true}
             />
             <div className="button-container">
                 <div className="button-actions">

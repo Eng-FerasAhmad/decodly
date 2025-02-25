@@ -97,6 +97,7 @@ export default function HtmlDomTree(): ReactElement {
                 className="w-full h-80 p-3 border bg-[#1E1E1E] text-white rounded-xl focus:outline-none resize-none placeholder-gray-400"
                 rows={6}
                 placeholder="Paste HTML content here..."
+                autoFocus={true}
             />
 
             <div className="flex items-end gap-4 mt-4">

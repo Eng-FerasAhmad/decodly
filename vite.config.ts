@@ -12,7 +12,7 @@ export default defineConfig({
         alias: {
             src: '/src',
             components: '/src/components',
-            context: '/src/calendar/context',
+            context: '/src/context',
             utils: '/src/utils',
             test: '/src/test',
             hooks: '/src/hooks',
